@@ -5,7 +5,7 @@ using Xunit;
 
 namespace Orchid.UnitTests.Mobile;
 
-public sealed class MobileSyncWorkerTests
+public sealed class MobileSyncWorkerTest
 {
     [Fact]
     public void Worker_Should_Pause_Background_Polling_When_App_Suspended()

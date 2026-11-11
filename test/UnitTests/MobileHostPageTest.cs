@@ -7,7 +7,7 @@ namespace Orchid.UnitTests.Mobile;
 /// <summary>
 /// Mobile ?몄뒪???섏씠吏媛 Android?먯꽌 Blazor ?먮룞 ?쒖옉??留됰뒗 ?ㅽ겕由쏀듃 ?쒓렇瑜??좎??섎뒗吏 寃利앺븯???⑥쐞 ?뚯뒪?몄엯?덈떎.
 /// </summary>
-public sealed class MobileHostPageTests
+public sealed class MobileHostPageTest
 {
     [Fact]
     public void IndexHtml_When_Blazor_Script_Loaded_Should_Defer_And_Disable_Autostart()

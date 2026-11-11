@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Orchid.UnitTests.Mobile;
 
-public sealed class MobileGardenRazorDiRegistrationTests
+public sealed class MobileGardenRazorDiRegistrationTest
 {
     [Fact]
     public void GivenMobileServiceCollection_WhenRegisteringGardenRazor_ThenServicesAreResolvable()
