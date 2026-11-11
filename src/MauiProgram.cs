@@ -45,7 +45,7 @@ public static class MauiProgram
         string relayUrl = typeof(MauiProgram).Assembly
             .GetCustomAttributes<AssemblyMetadataAttribute>()
             .Single(attribute => attribute.Key == "OrchidRelayUrl").Value!;
-        builder.Services.AddSingleton(new RelayOptions(new Uri(new Uri(relayUrl), "/hubs/clipboard")));
+        builder.Services.AddSingleton(new RelayOptions(new Uri(new Uri(relayUrl.TrimEnd('/') + "/"), "hubs/clipboard")));
         builder.Services.AddSingleton<IClipboardRelayClient, SignalRClipboardRelayClient>();
         builder.Services.AddSingleton<IClipboardChangeSource, NullClipboardChangeSource>();
         builder.Services.AddSingleton<ClipboardSyncCoordinator>();

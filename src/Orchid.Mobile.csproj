@@ -17,7 +17,7 @@
 
   <PropertyGroup>
     <!-- Desktop과 같은 기본값과 같은 덮어쓰기 규칙 -->
-    <OrchidRelayUrl Condition="'$(OrchidRelayUrl)' == ''">https://orchid.stag.botanicsoft.com</OrchidRelayUrl>
+    <OrchidRelayUrl Condition="'$(OrchidRelayUrl)' == ''">https://stag.botanicsoft.com/orchid</OrchidRelayUrl>
   </PropertyGroup>
 
   <ItemGroup>
