@@ -1,0 +1,119 @@
+name: publish-orchid-google-play-internal
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref to build (branch, tag, or full SHA). Defaults to the dispatch ref.'
+        required: false
+        default: ''
+      track:
+        description: 'Google Play track.'
+        required: true
+        default: 'internal'
+        type: choice
+        options:
+          - internal
+      release_status:
+        description: 'Play release status.'
+        required: true
+        default: 'draft'
+        type: choice
+        options:
+          - draft
+          - completed
+      runtime_environment:
+        description: 'Backend runtime environment baked into this AAB.'
+        required: true
+        default: 'Staging'
+        type: choice
+        options:
+          - Staging
+          - Production
+
+permissions:
+  contents: read
+
+env:
+  ANDROID_TFM: net10.0-android
+
+concurrency:
+  group: publish-orchid-google-play-internal-${{ inputs.ref || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: publish orchid google play internal
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.ref || github.ref }}
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install MAUI Android workload
+        run: dotnet workload install maui-android
+
+      - name: Decode upload keystore
+        id: keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.MOBILE_UPLOAD_KEYSTORE_BASE64 }}
+        run: |
+          test -n "$KEYSTORE_BASE64" || { echo "MOBILE_UPLOAD_KEYSTORE_BASE64 is required." >&2; exit 1; }
+          KEYSTORE_PATH="${RUNNER_TEMP}/orchid-upload.keystore"
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$KEYSTORE_PATH"
+          echo "path=$KEYSTORE_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Publish signed AAB
+        env:
+          KEYSTORE_PATH: ${{ steps.keystore.outputs.path }}
+          KEYSTORE_PASS: ${{ secrets.MOBILE_UPLOAD_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.MOBILE_UPLOAD_KEY_ALIAS }}
+          KEY_PASS: ${{ secrets.MOBILE_UPLOAD_KEY_PASSWORD }}
+        run: |
+          if [[ "${{ inputs.runtime_environment }}" == "Production" ]]; then
+            RELAY_URL="https://prod.botanicsoft.com/orchid"
+          else
+            RELAY_URL="https://stag.botanicsoft.com/orchid"
+          fi
+          dotnet publish src/Orchid.Mobile.csproj \
+            -f "$ANDROID_TFM" \
+            -c Release \
+            -p:OrchidAndroidOnlyPublish=true \
+            -p:AndroidPackageFormat=aab \
+            -p:AndroidKeyStore=true \
+            -p:AndroidSigningKeyStore="$KEYSTORE_PATH" \
+            -p:AndroidSigningStorePass="$KEYSTORE_PASS" \
+            -p:AndroidSigningKeyAlias="$KEY_ALIAS" \
+            -p:AndroidSigningKeyPass="$KEY_PASS" \
+            -p:OrchidRelayUrl="$RELAY_URL" \
+            -p:EnforceCodeStyleInBuild=false
+
+      - name: Locate signed AAB
+        id: aab
+        run: |
+          AAB_PATH="$(find src/bin/Release/${ANDROID_TFM} -name '*-Signed.aab' | head -n1)"
+          if [[ -z "$AAB_PATH" ]]; then
+            echo "Signed AAB not found." >&2
+            exit 1
+          fi
+          echo "path=$AAB_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Upload to Google Play
+        uses: r0adkll/upload-google-play@a80b0bcdcfdfcc2d026f2bc73f726760b2cbc967
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.botanicsoft.orchid
+          releaseFiles: ${{ steps.aab.outputs.path }}
+          tracks: ${{ inputs.track }}
+          status: ${{ inputs.release_status }}

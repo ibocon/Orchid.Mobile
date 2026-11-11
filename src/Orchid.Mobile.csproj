@@ -2,9 +2,14 @@
   <PropertyGroup>
     <TargetFramework></TargetFramework>
     <TargetFrameworks>net10.0-android</TargetFrameworks>
-    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('windows'))">net10.0-android;net10.0-ios</TargetFrameworks>
+    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('windows')) and '$(OrchidAndroidOnlyPublish)' != 'true'">net10.0-android;net10.0-ios</TargetFrameworks>
+    <RuntimeIdentifiers Condition="'$(OrchidAndroidOnlyPublish)' == 'true'">android-arm64</RuntimeIdentifiers>
     <OutputType>Exe</OutputType>
     <RootNamespace>Orchid.Mobile</RootNamespace>
+    <ApplicationTitle>Orchid Clipboard</ApplicationTitle>
+    <ApplicationId>com.botanicsoft.orchid</ApplicationId>
+    <ApplicationDisplayVersion Condition="'$(ApplicationDisplayVersion)' == ''">0.1.0</ApplicationDisplayVersion>
+    <ApplicationVersion Condition="'$(ApplicationVersion)' == ''">1</ApplicationVersion>
     <UseMaui>true</UseMaui>
     <SingleProject>true</SingleProject>
     <EnableDefaultCssItems>false</EnableDefaultCssItems>
