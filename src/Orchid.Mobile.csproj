@@ -6,7 +6,7 @@
     <RuntimeIdentifiers Condition="'$(OrchidAndroidOnlyPublish)' == 'true'">android-arm64</RuntimeIdentifiers>
     <OutputType>Exe</OutputType>
     <RootNamespace>Orchid.Mobile</RootNamespace>
-    <ApplicationTitle>Orchid Clipboard</ApplicationTitle>
+    <ApplicationTitle>Universal Clipboard Bridge</ApplicationTitle>
     <ApplicationId>com.botanicsoft.orchid</ApplicationId>
     <ApplicationDisplayVersion Condition="'$(ApplicationDisplayVersion)' == ''">0.1.0</ApplicationDisplayVersion>
     <ApplicationVersion Condition="'$(ApplicationVersion)' == ''">1</ApplicationVersion>
