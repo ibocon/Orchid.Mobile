@@ -1,16 +1,18 @@
 @namespace Orchid.Mobile.Component
 
-<MudAppBar Elevation="2" Dense="true" Color="Color.Surface">
-    <MudIcon Icon="@Icons.Material.Filled.Spa" Color="Color.Success" Class="mr-2" />
-    <MudText Typo="Typo.h6" Class="flex-grow-1">Orchid</MudText>
-    <MudChip T="string"
-             Color="@(IsConnected ? Color.Success : Color.Error)"
-             Size="MudSize.Small"
-             Variant="Variant.Outlined"
-             Icon="@(IsConnected ? Icons.Material.Filled.Sync : Icons.Material.Filled.SyncDisabled)">
-        @(IsConnected ? "동기화 중" : "오프라인")
-    </MudChip>
-</MudAppBar>
+<GardenTopAppBar Height="14" PaddingHorizontal="3" PaddingVertical="1">
+    <LeadingContent>
+        <MudIcon Icon="@Icons.Material.Filled.ContentPasteGo" Style="margin-right: var(--gdn-sys-spacing-2);" />
+        <GardenTypography HtmlTag="h1" Typo="TypographyStyle.Title" Size="TypographySize.Medium">
+            Universal Clipboard Bridge
+        </GardenTypography>
+    </LeadingContent>
+    <TrailingContent>
+        <GardenChipAssist Icon="@(IsConnected ? Icons.Material.Filled.Sync : Icons.Material.Filled.SyncDisabled)"
+                          Label="@(IsConnected ? "동기화 중" : "오프라인")"
+                          Variant="GardenChipAssistVariant.Outlined" />
+    </TrailingContent>
+</GardenTopAppBar>
 
 @code {
     /// <summary>

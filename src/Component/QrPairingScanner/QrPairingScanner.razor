@@ -1,16 +1,18 @@
 @namespace Orchid.Mobile.Component
 
-<MudPaper Elevation="2" Class="pa-6 d-flex flex-column align-center justify-center gap-4 text-center">
-    <MudIcon Icon="@Icons.Material.Filled.QrCodeScanner" Size="MudSize.Large" Color="Color.Primary" />
-    <MudText Typo="Typo.subtitle1">디바이스 페어링</MudText>
-    <MudText Typo="Typo.body2" Color="Color.Secondary">
+<GardenCard Type="GardenCardType.Elevated" Style="padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+    <MudIcon Icon="@Icons.Material.Filled.QrCodeScanner" Size="MudSize.Large" />
+    <GardenTypography HtmlTag="h2" Typo="TypographyStyle.Title" Size="TypographySize.Medium">
+        디바이스 페어링
+    </GardenTypography>
+    <GardenTypography Typo="TypographyStyle.Body" Size="TypographySize.Medium">
         데스크톱 화면에 표시된 페어링 키를 입력하세요.
-    </MudText>
-    <MudTextField T="string" @bind-Value="_manualKey" Label="페어링 키 직접 입력" />
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Link" OnClick="SubmitAsync">
+    </GardenTypography>
+    <GardenTextField @bind-Value="_manualKey" Label="페어링 키 직접 입력" />
+    <GardenButton Variant="GardenButtonVariant.Filled" Size="GardenButtonSize.Small" OnClick="SubmitAsync">
         연결
-    </MudButton>
-</MudPaper>
+    </GardenButton>
+</GardenCard>
 
 @code {
     private string? _manualKey;

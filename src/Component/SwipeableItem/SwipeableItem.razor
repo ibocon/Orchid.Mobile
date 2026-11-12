@@ -1,21 +1,23 @@
 @namespace Orchid.Mobile.Component
 
-<MudCard Elevation="1" Class="mb-2">
-    <MudCardHeader>
-        <CardHeaderContent>
-            <MudChip T="string" Color="Color.Primary" Size="MudSize.Small" Variant="Variant.Filled">
-                @ContentType.ToString()
-            </MudChip>
-        </CardHeaderContent>
-        <CardHeaderActions>
-            <MudIconButton Icon="@Icons.Material.Filled.PushPin" Color="Color.Default" OnClick="OnPinClick" />
-            <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" OnClick="OnDeleteClick" />
-        </CardHeaderActions>
-    </MudCardHeader>
-    <MudCardContent>
-        <MudText Typo="Typo.body2">@PreviewText</MudText>
-    </MudCardContent>
-</MudCard>
+<GardenCard Type="GardenCardType.Outlined" Style="padding: 16px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 8px;">
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+        <GardenChipAssist Label="@ContentType.ToString()" Variant="GardenChipAssistVariant.Elevated" />
+        <div style="display: flex; gap: 4px;">
+            <GardenIconButton Icon="@Icons.Material.Filled.PushPin"
+                              Variant="GardenIconButtonVariant.Standard"
+                              Size="GardenIconButtonSize.Small"
+                              OnClick="@(_ => OnPinClick.InvokeAsync())" />
+            <GardenIconButton Icon="@Icons.Material.Filled.Delete"
+                              Variant="GardenIconButtonVariant.Standard"
+                              Size="GardenIconButtonSize.Small"
+                              OnClick="@(_ => OnDeleteClick.InvokeAsync())" />
+        </div>
+    </div>
+    <GardenTypography Typo="TypographyStyle.Body" Size="TypographySize.Medium">
+        @PreviewText
+    </GardenTypography>
+</GardenCard>
 
 @code {
     /// <summary>

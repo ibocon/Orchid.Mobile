@@ -3,15 +3,15 @@
 <OrchidMobileDesignSystemProvider @ref="_provider" />
 <MudThemeProvider Theme="_provider?.CurrentMudTheme" IsDarkMode="true" />
 <MudDialogProvider />
-<MudSnackbarProvider />
+<GardenSnackbarProvider />
 <MudPopoverProvider />
 
-<MudLayout>
+<div class="orchid-mobile-shell">
     <MobileHeader />
-    <MudMainContent Class="pa-3">
+    <main style="padding: 12px;">
         <QrPairingScanner OnQrScanned="StartRelayAsync" />
-    </MudMainContent>
-</MudLayout>
+    </main>
+</div>
 
 @code {
     private OrchidMobileDesignSystemProvider? _provider;
