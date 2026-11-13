@@ -6,6 +6,7 @@ using Orchid.Core.Cryptography;
 using Orchid.Core.Storage;
 using Orchid.Core.Sync;
 using Orchid.Core.Sync.Relay;
+using Orchid.Mobile.Service;
 
 namespace Orchid.Mobile;
 
@@ -34,6 +35,7 @@ public static class MauiProgram
 #endif
 
         builder.Services.AddSingleton<IAesGcmCryptoService, AesGcmCryptoService>();
+        builder.Services.AddSingleton<IOrchidMobileAuthService, OrchidMobileAuthService>();
 
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "orchid_mobile.db");
         builder.Services.AddSingleton<IClipboardRepository>(_ => new SqliteClipboardRepository(dbPath));

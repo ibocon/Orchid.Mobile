@@ -1,4 +1,6 @@
 @namespace Orchid.Mobile.Component
+@using Orchid.Mobile.Service
+@inject IOrchidMobileAuthService AuthService
 
 <OrchidMobileDesignSystemProvider @ref="_provider" />
 <MudThemeProvider Theme="_provider?.CurrentMudTheme" IsDarkMode="true" />
@@ -7,14 +9,29 @@
 <MudPopoverProvider />
 
 <div class="orchid-mobile-shell">
-    <MobileHeader />
+    <MobileHeader IsAuthenticated="@AuthService.IsAuthenticated"
+                  UserName="@AuthService.CurrentUserName"
+                  UserEmail="@AuthService.CurrentUserEmail"
+                  OnSignOut="SignOutAsync" />
     <main style="padding: 12px;">
-        <QrPairingScanner OnQrScanned="StartRelayAsync" />
+        @if (!AuthService.IsAuthenticated)
+        {
+            <LoginPanel OnAuthenticated="StateHasChanged" />
+        }
+        else
+        {
+            <QrPairingScanner OnQrScanned="StartRelayAsync" />
+        }
     </main>
 </div>
 
 @code {
     private OrchidMobileDesignSystemProvider? _provider;
+
+    private async Task SignOutAsync(MouseEventArgs args)
+    {
+        await AuthService.SignOutAsync();
+    }
 
     private Task StartRelayAsync(string payload)
     {

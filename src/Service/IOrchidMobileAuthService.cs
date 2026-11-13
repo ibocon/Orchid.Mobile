@@ -1,0 +1,54 @@
+namespace Orchid.Mobile.Service;
+
+/// <summary>
+/// 모바일 클라이언트의 Keycloak OIDC 인증 상태와 로그인·로그아웃 동작을 제공하는 계약입니다.
+/// </summary>
+public interface IOrchidMobileAuthService
+{
+    /// <summary>
+    /// 현재 사용자가 인증되었는지 여부를 가져옵니다.
+    /// </summary>
+    bool IsAuthenticated { get; }
+
+    /// <summary>
+    /// 현재 로그인한 사용자의 표시 이름을 가져옵니다.
+    /// </summary>
+    string CurrentUserName { get; }
+
+    /// <summary>
+    /// 현재 로그인한 사용자의 이메일 주소를 가져옵니다.
+    /// </summary>
+    string CurrentUserEmail { get; }
+
+    /// <summary>
+    /// 현재 로그인한 사용자의 아바타 이니셜을 가져옵니다.
+    /// </summary>
+    string CurrentUserInitial { get; }
+
+    /// <summary>
+    /// Keycloak OIDC Authority URL을 가져옵니다.
+    /// </summary>
+    string AuthorityUrl { get; }
+
+    /// <summary>
+    /// 지정한 ID 공급자(google, kakao, microsoft)로 모바일 OIDC 로그인을 수행합니다.
+    /// </summary>
+    /// <param name="provider">ID 공급자 식별자</param>
+    /// <param name="cancellationToken">취소 토큰</param>
+    /// <returns>비동기 작업</returns>
+    Task SignInWithProviderAsync(string provider, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 현재 모바일 인증 세션을 종료하고 로그아웃합니다.
+    /// </summary>
+    /// <param name="cancellationToken">취소 토큰</param>
+    /// <returns>비동기 작업</returns>
+    Task SignOutAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// 지정한 ID 공급자에 대한 모바일 Keycloak OIDC 인가 요청 URI를 생성합니다.
+    /// </summary>
+    /// <param name="provider">ID 공급자 식별자</param>
+    /// <returns>Keycloak OIDC 인가 URI</returns>
+    Uri BuildAuthorizationUrl(string provider);
+}

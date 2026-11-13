@@ -1,16 +1,31 @@
 @namespace Orchid.Mobile.Component
 
-<GardenTopAppBar Height="14" PaddingHorizontal="3" PaddingVertical="1">
+<GardenTopAppBar Height="16"
+                 PaddingHorizontal="3"
+                 PaddingVertical="1">
     <LeadingContent>
-        <MudIcon Icon="@Icons.Material.Filled.ContentPasteGo" Style="margin-right: var(--gdn-sys-spacing-2);" />
-        <GardenTypography HtmlTag="h1" Typo="TypographyStyle.Title" Size="TypographySize.Medium">
+        <MudIcon Icon="@Icons.Material.Filled.ContentPasteGo"
+                 Style="margin-right: var(--gdn-sys-spacing-2);" />
+        <GardenTypography HtmlTag="h1"
+                          Typo="TypographyStyle.Title"
+                          Size="TypographySize.Medium"
+                          Style="margin-right: var(--gdn-sys-spacing-3); font-weight: 600; white-space: nowrap;">
             Universal Clipboard Bridge
         </GardenTypography>
     </LeadingContent>
     <TrailingContent>
-        <GardenChipAssist Icon="@(IsConnected ? Icons.Material.Filled.Sync : Icons.Material.Filled.SyncDisabled)"
-                          Label="@(IsConnected ? "동기화 중" : "오프라인")"
-                          Variant="GardenChipAssistVariant.Outlined" />
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <GardenChipAssist Icon="@(IsConnected ? Icons.Material.Filled.Sync : Icons.Material.Filled.SyncDisabled)"
+                              Label="@(IsConnected ? "동기화 중" : "오프라인")"
+                              Variant="GardenChipAssistVariant.Outlined" />
+            @if (IsAuthenticated)
+            {
+                <GardenAccountMenu DisplayName="@UserName"
+                                   Email="@UserEmail"
+                                   SignOutLabel="로그아웃"
+                                   OnSignOutRequested="OnSignOut" />
+            }
+        </div>
     </TrailingContent>
 </GardenTopAppBar>
 
@@ -20,4 +35,28 @@
     /// </summary>
     [Parameter]
     public bool IsConnected { get; set; } = true;
+
+    /// <summary>
+    /// 현재 사용자의 인증 여부를 나타냅니다.
+    /// </summary>
+    [Parameter]
+    public bool IsAuthenticated { get; set; }
+
+    /// <summary>
+    /// 현재 사용자의 표시 이름입니다.
+    /// </summary>
+    [Parameter]
+    public string? UserName { get; set; }
+
+    /// <summary>
+    /// 현재 사용자의 이메일 주소입니다.
+    /// </summary>
+    [Parameter]
+    public string? UserEmail { get; set; }
+
+    /// <summary>
+    /// 로그아웃 요청 시 호출되는 콜백입니다.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnSignOut { get; set; }
 }
