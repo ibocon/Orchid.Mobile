@@ -9,10 +9,10 @@ namespace Orchid.UnitTests.Mobile;
 public sealed class MobileGardenRazorDiRegistrationTest
 {
     [Fact]
-    public void GivenMobileServiceCollection_WhenRegisteringGardenRazor_ThenServicesAreResolvable()
+    public void GivenMobileServiceCollectionWhenRegisteringGardenRazorThenServicesAreResolvable()
     {
         // Given
-        var services = new ServiceCollection();
+        ServiceCollection services = new();
         services.AddLogging();
         services.AddLocalization();
         services.AddMudServices();
@@ -20,13 +20,13 @@ public sealed class MobileGardenRazorDiRegistrationTest
         services.AddDesignSystem();
 
         // When
-        using var provider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true });
-        using var scope = provider.CreateScope();
+        using ServiceProvider provider = services.BuildServiceProvider(new ServiceProviderOptions { ValidateScopes = true });
+        using IServiceScope scope = provider.CreateScope();
 
         // Then
-        var dialogService = scope.ServiceProvider.GetService<MudBlazor.IDialogService>();
-        var presenter = scope.ServiceProvider.GetService<ExceptionPresenter>();
-        var designSystem = scope.ServiceProvider.GetService<DesignSystem>();
+        MudBlazor.IDialogService? dialogService = scope.ServiceProvider.GetService<MudBlazor.IDialogService>();
+        ExceptionPresenter? presenter = scope.ServiceProvider.GetService<ExceptionPresenter>();
+        DesignSystem? designSystem = scope.ServiceProvider.GetService<DesignSystem>();
 
         dialogService.Should().NotBeNull();
         presenter.Should().NotBeNull();

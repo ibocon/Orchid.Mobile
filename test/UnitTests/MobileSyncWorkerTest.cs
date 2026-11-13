@@ -8,10 +8,10 @@ namespace Orchid.UnitTests.Mobile;
 public sealed class MobileSyncWorkerTest
 {
     [Fact]
-    public void Worker_Should_Pause_Background_Polling_When_App_Suspended()
+    public void WorkerShouldPauseBackgroundPollingWhenAppSuspended()
     {
         // Given
-        var worker = new Mock<IMobileSyncBackgroundWorker>();
+        Mock<IMobileSyncBackgroundWorker> worker = new();
 
         // When & Then
         worker.Setup(x => x.IsActive).Returns(false);
@@ -19,10 +19,10 @@ public sealed class MobileSyncWorkerTest
     }
 
     [Fact]
-    public void Worker_Should_Resume_When_App_Returns_To_Foreground()
+    public void WorkerShouldResumeWhenAppReturnsToForeground()
     {
         // Given
-        var worker = new Mock<IMobileSyncBackgroundWorker>();
+        Mock<IMobileSyncBackgroundWorker> worker = new();
         worker.Setup(x => x.IsActive).Returns(true);
 
         // When & Then
