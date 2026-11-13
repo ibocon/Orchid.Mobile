@@ -1,15 +1,19 @@
 @namespace Orchid.Mobile.Component
 @using Orchid.Mobile.Service
 @inject IOrchidMobileAuthService AuthService
+@inject DesignSystem DesignSystem
+@implements IDisposable
 
 <OrchidMobileDesignSystemProvider @ref="_provider" />
-<MudThemeProvider Theme="_provider?.CurrentMudTheme" IsDarkMode="true" />
+<MudThemeProvider Theme="_provider?.CurrentMudTheme" IsDarkMode="@(_provider?.IsDarkMode ?? false)" />
 <MudDialogProvider />
 <GardenSnackbarProvider />
 <MudPopoverProvider />
 
 <div class="orchid-mobile-shell">
     <MobileHeader IsAuthenticated="@AuthService.IsAuthenticated"
+                  IsDarkMode="@(_provider?.IsDarkMode ?? false)"
+                  OnToggleTheme="ToggleTheme"
                   UserName="@AuthService.CurrentUserName"
                   UserEmail="@AuthService.CurrentUserEmail"
                   OnSignOut="SignOutAsync" />
@@ -27,6 +31,32 @@
 
 @code {
     private OrchidMobileDesignSystemProvider? _provider;
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        DesignSystem.Color.SchemeSet.ContextChanged += OnSchemeContextChanged;
+    }
+
+    /// <summary>
+    /// 디자인 시스템 색상 문맥 변경 구독을 해제합니다.
+    /// </summary>
+    public void Dispose()
+    {
+        DesignSystem.Color.SchemeSet.ContextChanged -= OnSchemeContextChanged;
+        GC.SuppressFinalize(this);
+    }
+
+    private void ToggleTheme(MouseEventArgs _)
+    {
+        _provider?.ToggleTheme();
+        StateHasChanged();
+    }
+
+    private void OnSchemeContextChanged(object? sender, SchemeContextChangedEventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
 
     private async Task SignOutAsync(MouseEventArgs args)
     {

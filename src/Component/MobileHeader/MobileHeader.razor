@@ -18,6 +18,12 @@
             <GardenChipAssist Icon="@(IsConnected ? Icons.Material.Filled.Sync : Icons.Material.Filled.SyncDisabled)"
                               Label="@(IsConnected ? "동기화 중" : "오프라인")"
                               Variant="GardenChipAssistVariant.Outlined" />
+            <GardenIconButton Variant="GardenIconButtonVariant.Standard"
+                              Size="GardenIconButtonSize.Small"
+                              Icon="@(IsDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)"
+                              OnClick="OnToggleTheme"
+                              aria-label="테마 전환"
+                              title="Light/Dark 테마 전환" />
             @if (IsAuthenticated)
             {
                 <GardenAccountMenu DisplayName="@UserName"
@@ -53,6 +59,18 @@
     /// </summary>
     [Parameter]
     public string? UserEmail { get; set; }
+
+    /// <summary>
+    /// 현재 다크 모드 여부를 나타냅니다.
+    /// </summary>
+    [Parameter]
+    public bool IsDarkMode { get; set; }
+
+    /// <summary>
+    /// 테마 전환 요청 시 호출되는 콜백입니다.
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnToggleTheme { get; set; }
 
     /// <summary>
     /// 로그아웃 요청 시 호출되는 콜백입니다.

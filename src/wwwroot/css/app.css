@@ -1,8 +1,8 @@
 :root {
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --text-primary: #f0f0f0;
-    --accent: #10b981;
+    --bg-color: var(--gdn-sys-color-surface);
+    --card-bg: var(--gdn-sys-color-surface-container);
+    --text-primary: var(--gdn-sys-color-on-surface);
+    --accent: var(--gdn-sys-color-primary);
 }
 
 body {
@@ -20,7 +20,7 @@ body {
     align-items: center;
     padding: 12px 16px;
     background-color: var(--card-bg);
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--gdn-sys-color-outline-variant);
 }
 
 .brand {
@@ -47,5 +47,5 @@ body {
 }
 
 .status-dot.offline {
-    background-color: #ef4444;
+    background-color: var(--gdn-sys-color-error);
 }
