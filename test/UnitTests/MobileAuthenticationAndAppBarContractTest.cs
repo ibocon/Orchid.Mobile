@@ -125,6 +125,11 @@ public sealed class MobileAuthenticationAndAppBarContractTest
         loginPanel.Should().Contain("<GoogleLoginButton");
         loginPanel.Should().Contain("<KakaoLoginButton");
         loginPanel.Should().Contain("<MicrosoftLoginButton");
+
+        // ✅ 로그인 대기 중 취소 버튼과 상태 복구 가드가 구성된다
+        loginPanel.Should().Contain("CancelSignIn");
+        loginPanel.Should().Contain("<GardenButton");
+        loginPanel.Should().Contain("InvokeAsync(StateHasChanged)");
     }
 
     [Fact]
