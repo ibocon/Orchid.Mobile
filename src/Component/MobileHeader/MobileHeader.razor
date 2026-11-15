@@ -1,4 +1,5 @@
 @namespace Orchid.Mobile.Component
+@inject IStringLocalizer<MobileHeaderResource> Localizer
 
 <GardenTopAppBar Height="16"
                  PaddingHorizontal="3"
@@ -9,26 +10,26 @@
         <GardenTypography HtmlTag="h1"
                           Typo="TypographyStyle.Title"
                           Size="TypographySize.Medium"
-                          Style="margin-right: var(--gdn-sys-spacing-3); font-weight: 600; white-space: nowrap;">
-            Universal Clipboard Bridge
+                          Style="margin-right: var(--gdn-sys-spacing-2); font-weight: 600; white-space: nowrap;">
+            @Localizer[nameof(MobileHeaderResource.AppTitle)]
         </GardenTypography>
     </LeadingContent>
     <TrailingContent>
         <div style="display: flex; align-items: center; gap: 8px;">
             <GardenChipAssist Icon="@(IsConnected ? Icons.Material.Filled.Sync : Icons.Material.Filled.SyncDisabled)"
-                              Label="@(IsConnected ? "동기화 중" : "오프라인")"
+                              Label="@(IsConnected ? Localizer[nameof(MobileHeaderResource.SyncingLabel)] : Localizer[nameof(MobileHeaderResource.OfflineLabel)])"
                               Variant="GardenChipAssistVariant.Outlined" />
             <GardenIconButton Variant="GardenIconButtonVariant.Standard"
                               Size="GardenIconButtonSize.Small"
                               Icon="@(IsDarkMode ? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)"
                               OnClick="OnToggleTheme"
-                              aria-label="테마 전환"
-                              title="Light/Dark 테마 전환" />
+                              aria-label="@Localizer[nameof(MobileHeaderResource.ToggleThemeLabel)]"
+                              title="@Localizer[nameof(MobileHeaderResource.ToggleThemeLabel)]" />
             @if (IsAuthenticated)
             {
                 <GardenAccountMenu DisplayName="@UserName"
                                    Email="@UserEmail"
-                                   SignOutLabel="로그아웃"
+                                   SignOutLabel="@Localizer[nameof(MobileHeaderResource.SignOutLabel)]"
                                    OnSignOutRequested="OnSignOut" />
             }
         </div>

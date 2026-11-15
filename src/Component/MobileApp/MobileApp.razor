@@ -2,31 +2,44 @@
 @using Orchid.Mobile.Service
 @inject IOrchidMobileAuthService AuthService
 @inject DesignSystem DesignSystem
+@inject IWindowInsets Insets
 @implements IDisposable
+
+@{
+    string snackbarStyle = new StyleBuilder()
+        .AddStyle("--root-bottom-inset", $"{Insets.BottomPixel}px")
+        .Build();
+    string shellStyle = new StyleBuilder()
+        .AddStyle("--root-shell-padding-top", $"{Insets.TopPixel}px")
+        .AddStyle("--root-bottom-inset", $"{Insets.BottomPixel}px")
+        .Build();
+}
 
 <OrchidMobileDesignSystemProvider @ref="_provider" />
 <MudThemeProvider Theme="_provider?.CurrentMudTheme" IsDarkMode="@(_provider?.IsDarkMode ?? false)" />
 <MudDialogProvider />
-<GardenSnackbarProvider />
+<GardenSnackbarProvider Style="@snackbarStyle" />
 <MudPopoverProvider />
 
-<div class="orchid-mobile-shell">
-    <MobileHeader IsAuthenticated="@AuthService.IsAuthenticated"
-                  IsDarkMode="@(_provider?.IsDarkMode ?? false)"
-                  OnToggleTheme="ToggleTheme"
-                  UserName="@AuthService.CurrentUserName"
-                  UserEmail="@AuthService.CurrentUserEmail"
-                  OnSignOut="SignOutAsync" />
-    <main style="padding: 12px;">
-        @if (!AuthService.IsAuthenticated)
-        {
-            <LoginPanel OnAuthenticated="StateHasChanged" />
-        }
-        else
-        {
-            <QrPairingScanner OnQrScanned="StartRelayAsync" />
-        }
-    </main>
+<div class="root__shell" style="@shellStyle">
+    <div class="root__shell-content">
+        <MobileHeader IsAuthenticated="@AuthService.IsAuthenticated"
+                      IsDarkMode="@(_provider?.IsDarkMode ?? false)"
+                      OnToggleTheme="ToggleTheme"
+                      UserName="@AuthService.CurrentUserName"
+                      UserEmail="@AuthService.CurrentUserEmail"
+                      OnSignOut="SignOutAsync" />
+        <main class="root__main">
+            @if (!AuthService.IsAuthenticated)
+            {
+                <LoginPanel OnAuthenticated="StateHasChanged" />
+            }
+            else
+            {
+                <QrPairingScanner OnQrScanned="StartRelayAsync" />
+            }
+        </main>
+    </div>
 </div>
 
 @code {
@@ -36,14 +49,16 @@
     protected override void OnInitialized()
     {
         DesignSystem.Color.SchemeSet.ContextChanged += OnSchemeContextChanged;
+        Insets.Changed += OnInsetsChanged;
     }
 
     /// <summary>
-    /// 디자인 시스템 색상 문맥 변경 구독을 해제합니다.
+    /// 디자인 시스템 색상 문맥 및 WindowInsets 변경 구독을 해제합니다.
     /// </summary>
     public void Dispose()
     {
         DesignSystem.Color.SchemeSet.ContextChanged -= OnSchemeContextChanged;
+        Insets.Changed -= OnInsetsChanged;
         GC.SuppressFinalize(this);
     }
 
@@ -54,6 +69,11 @@
     }
 
     private void OnSchemeContextChanged(object? sender, SchemeContextChangedEventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void OnInsetsChanged(object? sender, EventArgs e)
     {
         InvokeAsync(StateHasChanged);
     }

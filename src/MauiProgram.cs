@@ -1,6 +1,8 @@
 using System.Reflection;
-using MudBlazor.Services;
+using CommunityToolkit.Maui;
+using Garden.Maui;
 using Garden.Razor;
+using MudBlazor.Services;
 using Orchid.Core.Abstraction;
 using Orchid.Core.Cryptography;
 using Orchid.Core.Storage;
@@ -23,12 +25,17 @@ public static class MauiProgram
     {
         MauiAppBuilder builder = MauiApp.CreateBuilder();
         builder
-            .UseMauiApp<App>();
+            .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
+            .ConfigureGardenMaui();
 
         builder.Services.AddMauiBlazorWebView();
         builder.Services.AddMudServices();
         builder.Services.AddGardenRazor();
         builder.Services.AddDesignSystem();
+        builder.Services.AddLocalization();
+        builder.Services.AddSingleton<MainViewModel>();
+        builder.Services.AddSingleton<MainPage>();
 
 #if DEBUG
         builder.Services.AddBlazorWebViewDeveloperTools();

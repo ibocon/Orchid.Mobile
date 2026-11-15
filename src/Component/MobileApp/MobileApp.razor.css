@@ -1,0 +1,27 @@
+.root__shell {
+    width: 100%;
+    height: var(--gdn-mobile-layout-content-height);
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--root-shell-padding-top, 0px);
+    padding-bottom: var(--root-bottom-inset, 0px);
+    box-sizing: border-box;
+    background-color: var(--gdn-sys-color-surface);
+    position: relative;
+    overflow: clip;
+}
+
+.root__shell-content {
+    --gdn-mobile-layout-content-height: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.root__main {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 12px;
+}
