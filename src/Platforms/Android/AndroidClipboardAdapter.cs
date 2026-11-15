@@ -39,8 +39,11 @@ public sealed class AndroidClipboardAdapter : ISystemClipboard
         ClipboardManager? clipboard = (ClipboardManager?)_context.GetSystemService(Context.ClipboardService);
         if (clipboard is not null)
         {
-            ClipData clip = ClipData.NewPlainText("Orchid", text);
-            clipboard.PrimaryClip = clip;
+            ClipData? clip = ClipData.NewPlainText("Orchid", text);
+            if (clip is not null)
+            {
+                clipboard.PrimaryClip = clip;
+            }
         }
 
         return Task.CompletedTask;
