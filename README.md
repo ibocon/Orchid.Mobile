@@ -24,3 +24,11 @@ pwsh -NoProfile -ExecutionPolicy Bypass -File D:\Source\BotanicSoft\Orchid.Mobil
 ```pwsh
 pwsh -NoProfile -ExecutionPolicy Bypass -File D:\Source\BotanicSoft\Orchid.Mobile\scripts\Start-OrchidMobileStaging.ps1 -BuildOnly
 ```
+
+### 4. Galaxy S22 Ultra(`SM-S908N`) 고정 Staging 배포 및 실행
+
+`Peony.Mobile`의 `Deploy-S22StagingPeonyMobile.ps1`과 동일하게 `adb devices -l`에서 `SM-S908N` 단말을 자동 감지(또는 기본 무선 ADB 주소 `10.79.96.2:5555`로 연결)하여 Staging 빌드를 배포하고 `com.botanicsoft.orchid` 프로세스 기동까지 검증합니다.
+
+```pwsh
+pwsh -NoProfile -ExecutionPolicy Bypass -File D:\Source\BotanicSoft\Orchid.Mobile\scripts\Deploy-S22StagingOrchidMobile.ps1
+```
