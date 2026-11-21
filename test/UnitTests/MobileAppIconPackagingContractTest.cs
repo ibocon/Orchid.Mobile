@@ -42,9 +42,23 @@ public sealed class MobileAppIconPackagingContractTest
         foreground.Should().Be(loginMark);
         isCompactThreePetalMark.Should().BeTrue();
         foreground.Should().Contain("id=\"orchid-throat\"");
-        foreground.Should().Contain("#A8796A");
+        foreground.Should().Contain("#6D5443");
         foreground.Should().NotContain("id=\"stem\"");
         foreground.Should().NotContain("vein");
+    }
+
+    [Fact]
+    public void ForegroundShouldUseThickInkOutlineAndKeepSafeZoneScale()
+    {
+        // Given
+        string repositoryRoot = FindRepositoryRoot();
+        string project = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Maui", "Orchid.Mobile.csproj"));
+        string foreground = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Maui", "Resources", "AppIcon", "appiconfg.svg"));
+
+        // When & Then
+        project.Should().Contain("ForegroundScale=\"0.84\"");
+        foreground.Should().Contain("stroke=\"#6D5443\"").And.Contain("stroke-width=\"30\"");
+        foreground.Should().NotContain("#A8796A");
     }
 
     private static string FindRepositoryRoot()

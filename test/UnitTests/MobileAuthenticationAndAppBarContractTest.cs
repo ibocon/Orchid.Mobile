@@ -138,7 +138,7 @@ public sealed class MobileAuthenticationAndAppBarContractTest
         logo.Should().Contain("id=\"petal-right\"");
         logo.Should().Contain("id=\"orchid-core\"");
         logo.Should().Contain("id=\"orchid-throat\"");
-        logo.Should().Contain("#A8796A");
+        logo.Should().Contain("#6D5443");
         logo.Should().NotContain("id=\"stem\"");
         logo.Should().NotContain("vein");
     }

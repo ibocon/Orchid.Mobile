@@ -4,13 +4,14 @@
      role="img"
      aria-label="Orchid"
      viewBox="0 0 1024 1024">
-    <title>Orchid</title>
-    <desc>A gentle hand-drawn orchid with rounded petals, a ruffled plum labellum, and compact-icon whitespace.</desc>
-    <g stroke="#A8796A" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
-        <path id="petal-top" fill="#D3BEDD" d="M512 176C452 246 452 356 512 440C572 356 572 246 512 176Z" />
-        <path id="petal-left" fill="#E9B2B8" d="M494 406C428 336 326 320 256 356C198 362 164 406 170 462C176 516 214 554 268 562C320 620 418 596 486 526C516 494 520 440 494 406Z" />
-        <path id="petal-right" fill="#E9B2B8" d="M530 406C596 336 698 320 768 356C826 362 860 406 854 462C848 516 810 554 756 562C704 620 606 596 538 526C508 494 504 440 530 406Z" />
-        <path id="orchid-core" fill="#A96C8E" d="M512 470C462 470 426 508 434 552C404 580 414 624 450 634C458 672 492 692 512 664C532 692 566 672 574 634C610 624 620 580 590 552C598 508 562 470 512 470Z" />
-        <path id="orchid-throat" fill="#EDC261" d="M512 490C492 490 480 508 486 526C468 526 456 538 462 554C470 568 490 566 500 554C506 566 518 566 524 554C534 566 554 568 562 554C568 538 556 526 538 526C544 508 532 490 512 490Z" />
+    <title>Orchid app icon foreground</title>
+    <desc>Orchid illustration foreground used by every icon surface; composited over the cream tile.</desc>
+    <g transform="translate(0 59)"
+       stroke="#6D5443" stroke-width="30" stroke-linejoin="round" stroke-linecap="round">
+        <path id="petal-top" fill="#BFA3DA" d="M512 194C432 278 440 390 512 478C584 390 592 278 512 194Z" />
+        <path id="petal-left" fill="#E58FA0" d="M490 424C413 334 294 330 231 386C173 402 158 472 194 520C227 582 328 604 398 558C452 542 490 500 508 454C506 444 501 434 490 424Z" />
+        <path id="petal-right" fill="#E58FA0" d="M534 424C611 334 730 330 793 386C851 402 866 472 830 520C797 582 696 604 626 558C572 542 534 500 516 454C518 444 523 434 534 424Z" />
+        <path id="orchid-core" fill="#A96C8E" d="M512 494C458 494 424 534 438 576C402 604 414 656 456 662C466 706 496 728 512 696C528 728 558 706 568 662C610 656 622 604 586 576C600 534 566 494 512 494Z" />
+        <path id="orchid-throat" fill="#EDC261" d="M512 514C492 514 478 534 486 552C468 548 452 564 458 582C466 598 488 600 500 584C506 598 518 598 524 584C536 600 558 598 566 582C572 564 556 548 538 552C546 534 532 514 512 514Z" />
     </g>
 </svg>
