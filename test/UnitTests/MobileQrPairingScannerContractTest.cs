@@ -14,7 +14,7 @@ public sealed class MobileQrPairingScannerContractTest
     public void GivenAndroidManifestWhenInspectingCameraAccessThenCameraPermissionExists()
     {
         // Given
-        string manifest = ReadRepositoryFile("src/Mobile/src/Platforms/Android/AndroidManifest.xml");
+        string manifest = ReadRepositoryFile("src/Maui/Platforms/Android/AndroidManifest.xml");
 
         // When
         bool hasCameraPermission = manifest.Contains("android.permission.CAMERA", StringComparison.Ordinal);
@@ -27,8 +27,8 @@ public sealed class MobileQrPairingScannerContractTest
     public void GivenMobileHostWhenInspectingBootstrapThenBarcodeReaderIsConfigured()
     {
         // Given
-        string project = ReadRepositoryFile("src/Mobile/src/Orchid.Mobile.csproj");
-        string mauiProgram = ReadRepositoryFile("src/Mobile/src/MauiProgram.cs");
+        string project = ReadRepositoryFile("src/Maui/Orchid.Mobile.csproj");
+        string mauiProgram = ReadRepositoryFile("src/Maui/MauiProgram.cs");
 
         // When
         bool packageReferenced = project.Contains("ZXing.Net.Maui.Controls", StringComparison.Ordinal);
@@ -43,7 +43,7 @@ public sealed class MobileQrPairingScannerContractTest
     public void GivenQrPairingComponentWhenScanningSucceedsThenItUsesExistingPairingCallback()
     {
         // Given
-        string component = ReadRepositoryFile("src/Mobile/src/Component/QrPairingScanner/QrPairingScanner.razor");
+        string component = ReadRepositoryFile("src/Maui/Component/QrPairingScanner/QrPairingScanner.razor");
 
         // When
         bool scannerInjected = component.Contains("IQrPairingScanner", StringComparison.Ordinal);

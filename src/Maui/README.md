@@ -1,4 +1,4 @@
-# 📱 Orchid.Mobile (`src/Mobile/src`)
+# 📱 Orchid.Mobile (`src/Maui`)
 
 > **Android & iOS** 모바일 환경을 지원하는 **.NET MAUI Blazor Hybrid 모바일 애플리케이션**
 
@@ -16,8 +16,8 @@
 ## 2. 폴더 및 디렉터리 구조
 
 ```text
-src/Mobile/
-├── src/                         # .NET MAUI Blazor Hybrid 호스트
+src/Maui/
+├── src/Maui/                    # .NET MAUI Blazor Hybrid 호스트
 │   ├── Platforms/               # 모바일 OS별 네이티브 서비스 구현부
 │   ├── Android/                 # Android 전용
 │   │   ├── ClipboardAccessibilityService.cs # 백그라운드 클립보드 자동 수집 서비스

@@ -14,7 +14,7 @@ public sealed class MobilePairingQrDisplayContractTest
     public void GivenMobilePairingUiWhenInspectingThenItGeneratesAndRendersOnlyTheStandardPayload()
     {
         // Given
-        string component = ReadRepositoryFile("src/Mobile/src/Component/QrPairingCode/QrPairingCode.razor");
+        string component = ReadRepositoryFile("src/Maui/Component/QrPairingCode/QrPairingCode.razor");
 
         // When
         bool generatesKey = component.Contains("PairingKey.Generate().ToPayload()", StringComparison.Ordinal);
@@ -29,7 +29,7 @@ public sealed class MobilePairingQrDisplayContractTest
     public void GivenQrImageEncoderWhenInspectingThenItUsesCrossPlatformPngWithoutLoggingPayload()
     {
         // Given
-        string encoder = ReadRepositoryFile("src/Mobile/src/Service/QrCodeImageEncoder.cs");
+        string encoder = ReadRepositoryFile("src/Maui/Service/QrCodeImageEncoder.cs");
 
         // When
         bool createsPng = encoder.Contains("PngByteQRCodeHelper.GetQRCode", StringComparison.Ordinal);
@@ -46,7 +46,7 @@ public sealed class MobilePairingQrDisplayContractTest
     public void GivenPairingCardWhenInspectingThenItComposesDisplayWithoutAutoSubmittingGeneratedKey()
     {
         // Given
-        string scanner = ReadRepositoryFile("src/Mobile/src/Component/QrPairingScanner/QrPairingScanner.razor");
+        string scanner = ReadRepositoryFile("src/Maui/Component/QrPairingScanner/QrPairingScanner.razor");
 
         // When
         bool composesDisplay = scanner.Contains("<QrPairingCode />", StringComparison.Ordinal);
@@ -61,7 +61,7 @@ public sealed class MobilePairingQrDisplayContractTest
     public void GivenMobilePairingUiWhenInspectingThenQrIsCollapsedByDefaultAndGeneratedLazily()
     {
         // Given
-        string component = ReadRepositoryFile("src/Mobile/src/Component/QrPairingCode/QrPairingCode.razor");
+        string component = ReadRepositoryFile("src/Maui/Component/QrPairingCode/QrPairingCode.razor");
 
         // When
         bool collapsedByDefault = component.Contains("private bool _expanded;", StringComparison.Ordinal);
@@ -78,8 +78,8 @@ public sealed class MobilePairingQrDisplayContractTest
     public void GivenQrStyleWhenInspectingThenImageWidthIsCappedAndNotNestedInCard()
     {
         // Given
-        string style = ReadRepositoryFile("src/Mobile/src/Component/QrPairingCode/QrPairingCode.razor.css");
-        string component = ReadRepositoryFile("src/Mobile/src/Component/QrPairingCode/QrPairingCode.razor");
+        string style = ReadRepositoryFile("src/Maui/Component/QrPairingCode/QrPairingCode.razor.css");
+        string component = ReadRepositoryFile("src/Maui/Component/QrPairingCode/QrPairingCode.razor");
 
         // When
         bool capsImageWidth = style.Contains("width: min(168px, 60%);", StringComparison.Ordinal);
@@ -97,8 +97,8 @@ public sealed class MobilePairingQrDisplayContractTest
     public void GivenPairingCardWhenInspectingThenActionsPrecedeQrAndGuidanceIsNotDuplicated()
     {
         // Given
-        string scanner = ReadRepositoryFile("src/Mobile/src/Component/QrPairingScanner/QrPairingScanner.razor");
-        string component = ReadRepositoryFile("src/Mobile/src/Component/QrPairingCode/QrPairingCode.razor");
+        string scanner = ReadRepositoryFile("src/Maui/Component/QrPairingScanner/QrPairingScanner.razor");
+        string component = ReadRepositoryFile("src/Maui/Component/QrPairingCode/QrPairingCode.razor");
 
         // When
         int connectIndex = scanner.IndexOf("OnClick=\"SubmitAsync\"", StringComparison.Ordinal);

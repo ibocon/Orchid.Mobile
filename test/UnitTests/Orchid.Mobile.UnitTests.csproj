@@ -26,8 +26,8 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\src\Service\IOrchidMobileAuthService.cs" Link="Service\IOrchidMobileAuthService.cs" />
-    <Compile Include="..\..\src\Service\MobileRelayConnectionState.cs" Link="Service\MobileRelayConnectionState.cs" />
-    <Compile Include="..\..\src\Service\OrchidMobileAuthService.cs" Link="Service\OrchidMobileAuthService.cs" />
+    <Compile Include="..\..\src\Maui\Service\IOrchidMobileAuthService.cs" Link="Service\IOrchidMobileAuthService.cs" />
+    <Compile Include="..\..\src\Maui\Service\MobileRelayConnectionState.cs" Link="Service\MobileRelayConnectionState.cs" />
+    <Compile Include="..\..\src\Maui\Service\OrchidMobileAuthService.cs" Link="Service\OrchidMobileAuthService.cs" />
   </ItemGroup>
 </Project>

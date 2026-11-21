@@ -10,7 +10,7 @@ public sealed class MobileGooglePlayPipelineContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string csproj = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Orchid.Mobile.csproj"));
+        string csproj = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Orchid.Mobile.csproj"));
         string workflow = File.ReadAllText(Path.Combine(repoRoot, ".github/workflows/publish-orchid-google-play-internal.yml"));
 
         // When & Then

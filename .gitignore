@@ -555,12 +555,12 @@ nunit-*.xml
 # 26.06.02 [Claude] Android 업로드 서명 keystore/certificate (로컬/백업 전용, CI는 GitHub secret 사용)
 *.keystore
 *.pem
-src/Mobile/src/peony-upload.keystore
+src/Maui/peony-upload.keystore
 
 # 26.07.14 [예건] FCM google-services.json 은 secret 으로 공급하고 커밋하지 않는다.
 # 26.07.16 [예건] 환경별 고정 경로를 모두 제외해 수동 교체를 제거한다.
-src/Mobile/src/Platforms/Android/google-services.json
-src/Mobile/src/Platforms/Android/Firebase/*/google-services.json
+src/Maui/Platforms/Android/google-services.json
+src/Maui/Platforms/Android/Firebase/*/google-services.json
 
 # 26.07.01 [Claude] Assets vite 빌드 산출물 (dotnet build BeforeTargets에서 재생성, *.js.map은 이미 제외됨)
 src/Frontdoor/Assets/src/wwwroot/peony-frontdoor-assets.js

@@ -57,8 +57,8 @@ public sealed class MobileAuthenticationAndAppBarContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string settings = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Resources/appsettings.json"));
-        string callbackActivity = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Platforms/Android/WebAuthenticationCallbackActivity.cs"));
+        string settings = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Resources/appsettings.json"));
+        string callbackActivity = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Platforms/Android/WebAuthenticationCallbackActivity.cs"));
 
         // When
         using JsonDocument document = JsonDocument.Parse(settings);
@@ -76,10 +76,10 @@ public sealed class MobileAuthenticationAndAppBarContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string indexHtml = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/wwwroot/index.html"));
-        string callbackActivity = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Platforms/Android/WebAuthenticationCallbackActivity.cs"));
-        string mobileHeader = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/MobileHeader/MobileHeader.razor"));
-        string loginPanel = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/LoginPanel/LoginPanel.razor"));
+        string indexHtml = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/wwwroot/index.html"));
+        string callbackActivity = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Platforms/Android/WebAuthenticationCallbackActivity.cs"));
+        string mobileHeader = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/MobileHeader/MobileHeader.razor"));
+        string loginPanel = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/LoginPanel/LoginPanel.razor"));
 
         // When & Then
         // ✅ Scoped CSS 번들, WebAuthenticatorCallbackActivity, GardenAccountMenu, 공통 로그인 화면이 모두 포함된다
@@ -96,8 +96,8 @@ public sealed class MobileAuthenticationAndAppBarContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string logoPath = Path.Combine(repoRoot, "src/Mobile/src/wwwroot/logo-login.svg");
-        string loginPanel = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/LoginPanel/LoginPanel.razor"));
+        string logoPath = Path.Combine(repoRoot, "src/Maui/wwwroot/logo-login.svg");
+        string loginPanel = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/LoginPanel/LoginPanel.razor"));
 
         // When & Then
         // ✅ 브랜드 로고 SVG가 존재하고 유효한 svg 마크업을 포함한다
@@ -114,7 +114,7 @@ public sealed class MobileAuthenticationAndAppBarContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string mauiProgram = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/MauiProgram.cs"));
+        string mauiProgram = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/MauiProgram.cs"));
 
         // When & Then
         // ✅ ResourceOwnerAuth가 요구하는 IMediator를 composition root에서 등록한다
@@ -126,8 +126,8 @@ public sealed class MobileAuthenticationAndAppBarContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string appCss = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/wwwroot/css/app.css"));
-        string logo = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/wwwroot/logo-login.svg"));
+        string appCss = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/wwwroot/css/app.css"));
+        string logo = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/wwwroot/logo-login.svg"));
 
         // When & Then
         appCss.Should().Contain("--orchid-mobile-canvas-start");
@@ -148,10 +148,10 @@ public sealed class MobileAuthenticationAndAppBarContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string provider = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/OrchidMobileDesignSystemProvider/OrchidMobileDesignSystemProvider.razor.cs"));
-        string mobileApp = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/MobileApp/MobileApp.razor"));
-        string mainPageXaml = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/MainPage.xaml"));
-        string appCss = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/wwwroot/css/app.css"));
+        string provider = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/OrchidMobileDesignSystemProvider/OrchidMobileDesignSystemProvider.razor.cs"));
+        string mobileApp = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/MobileApp/MobileApp.razor"));
+        string mainPageXaml = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/MainPage.xaml"));
+        string appCss = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/wwwroot/css/app.css"));
 
         // When & Then
         // ✅ 프로바이더가 Light 기본 컨텍스트, PaletteLight/PaletteDark 양방향 매핑, 테마 전환 API를 노출한다

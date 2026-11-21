@@ -5,9 +5,9 @@
      aria-label="Orchid"
      viewBox="0 0 1024 1024">
     <title>Orchid</title>
-    <desc>A soft hand-drawn orchid with full rounded petals and a ruffled plum labellum.</desc>
+    <desc>A gentle hand-drawn orchid with rounded petals, a ruffled plum labellum, and compact-icon whitespace.</desc>
     <g stroke="#A8796A" stroke-width="16" stroke-linejoin="round" stroke-linecap="round">
-        <path id="petal-top" fill="#D3BEDD" d="M512 194C432 278 440 390 512 478C584 390 592 278 512 194Z" />
+        <path id="petal-top" fill="#D3BEDD" d="M512 176C452 246 452 356 512 440C572 356 572 246 512 176Z" />
         <path id="petal-left" fill="#E9B2B8" d="M494 406C428 336 326 320 256 356C198 362 164 406 170 462C176 516 214 554 268 562C320 620 418 596 486 526C516 494 520 440 494 406Z" />
         <path id="petal-right" fill="#E9B2B8" d="M530 406C596 336 698 320 768 356C826 362 860 406 854 462C848 516 810 554 756 562C704 620 606 596 538 526C508 494 504 440 530 406Z" />
         <path id="orchid-core" fill="#A96C8E" d="M512 470C462 470 426 508 434 552C404 580 414 624 450 634C458 672 492 692 512 664C532 692 566 672 574 634C610 624 620 580 590 552C598 508 562 470 512 470Z" />

@@ -15,7 +15,7 @@ public sealed class MobileSafeAreaAndWindowInsetContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string mobileApp = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/MobileApp/MobileApp.razor"));
+        string mobileApp = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/MobileApp/MobileApp.razor"));
 
         // When & Then
         // ✅ Insets.TopPixel 및 Insets.BottomPixel을 읽는 루트 셸 컴포넌트는 반드시 Insets.Changed를 구독 및 해제해야 한다
@@ -30,9 +30,9 @@ public sealed class MobileSafeAreaAndWindowInsetContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string indexHtml = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/wwwroot/index.html"));
-        string appCss = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/wwwroot/css/app.css"));
-        string shellCss = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/MobileApp/MobileApp.razor.css"));
+        string indexHtml = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/wwwroot/index.html"));
+        string appCss = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/wwwroot/css/app.css"));
+        string shellCss = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/MobileApp/MobileApp.razor.css"));
 
         // When & Then
         // ✅ Peony.Mobile과 동일하게 status-bar-safe-area, --gdn-mobile-layout-content-height: 100svh, --root-shell-padding-top, --root-bottom-inset을 선언한다
@@ -48,11 +48,11 @@ public sealed class MobileSafeAreaAndWindowInsetContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string mauiProgram = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/MauiProgram.cs"));
-        string mainPageXaml = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/MainPage.xaml"));
-        string stylesXml = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Platforms/Android/Resources/values/styles.xml"));
-        string mobileHeader = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/MobileHeader/MobileHeader.razor"));
-        string mobileHeaderKoResx = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/MobileHeader/MobileHeaderResource.ko-KR.resx"));
+        string mauiProgram = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/MauiProgram.cs"));
+        string mainPageXaml = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/MainPage.xaml"));
+        string stylesXml = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Platforms/Android/Resources/values/styles.xml"));
+        string mobileHeader = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/MobileHeader/MobileHeader.razor"));
+        string mobileHeaderKoResx = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/MobileHeader/MobileHeaderResource.ko-KR.resx"));
 
         // When & Then
         // ✅ ConfigureGardenMaui, garden:BasePage, AppTheme, 그리고 MobileHeader의 모두클립 현지화 리소스가 구성된다

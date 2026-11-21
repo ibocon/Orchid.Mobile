@@ -15,7 +15,7 @@ public sealed class MobileLoginWiringContractTest
     public void MauiProgramRegistersLoginOutcomeHandlerInBlazorWebViewScope()
     {
         // Given
-        string program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src/Mobile/src/MauiProgram.cs"));
+        string program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src/Maui/MauiProgram.cs"));
 
         // When
         bool registersHandler = program.Contains(
@@ -46,8 +46,8 @@ public sealed class MobileLoginWiringContractTest
     {
         // Given
         string root = FindRepositoryRoot();
-        string loginPanel = File.ReadAllText(Path.Combine(root, "src/Mobile/src/Component/LoginPanel/LoginPanel.razor"));
-        string mobileApp = File.ReadAllText(Path.Combine(root, "src/Mobile/src/Component/MobileApp/MobileApp.razor"));
+        string loginPanel = File.ReadAllText(Path.Combine(root, "src/Maui/Component/LoginPanel/LoginPanel.razor"));
+        string mobileApp = File.ReadAllText(Path.Combine(root, "src/Maui/Component/MobileApp/MobileApp.razor"));
 
         // When & Then
         loginPanel.Should().Contain("<LoginScreen Branding=\"_branding\">");
@@ -56,7 +56,7 @@ public sealed class MobileLoginWiringContractTest
         loginPanel.Should().Contain("Outcome.Authenticated += NotifyAuthenticatedAsync;");
         loginPanel.Should().Contain("Outcome.Authenticated -= NotifyAuthenticatedAsync;");
         mobileApp.Should().Contain("<LoginPanel OnAuthenticated=\"StateHasChanged\" />");
-        File.Exists(Path.Combine(root, "src/Mobile/src/Component/LoginPanel/LoginPanel.razor.css"))
+        File.Exists(Path.Combine(root, "src/Maui/Component/LoginPanel/LoginPanel.razor.css"))
             .Should().BeFalse("로그인 스타일은 Garden.Razor.LoginScreen이 소유한다");
     }
 

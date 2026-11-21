@@ -19,8 +19,8 @@ public sealed class MobileAppMetadataLocalizationContractTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        XDocument manifest = XDocument.Load(Path.Combine(repoRoot, "src/Mobile/src/Platforms/Android/AndroidManifest.xml"));
-        XDocument project = XDocument.Load(Path.Combine(repoRoot, "src/Mobile/src/Orchid.Mobile.csproj"));
+        XDocument manifest = XDocument.Load(Path.Combine(repoRoot, "src/Maui/Platforms/Android/AndroidManifest.xml"));
+        XDocument project = XDocument.Load(Path.Combine(repoRoot, "src/Maui/Orchid.Mobile.csproj"));
 
         // When
         XElement application = manifest.Root!
@@ -46,7 +46,7 @@ public sealed class MobileAppMetadataLocalizationContractTest
     {
         string resourcePath = Path.Combine(
             repositoryRoot,
-            "src", "Mobile", "src",
+            "src", "Maui",
             "Platforms",
             "Android",
             "Resources",

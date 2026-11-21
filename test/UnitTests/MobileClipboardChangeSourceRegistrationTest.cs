@@ -9,7 +9,7 @@ public sealed class MobileClipboardChangeSourceRegistrationTest
     public void GivenAndroidCompositionWhenReadingMauiProgramThenConcreteClipboardChangeSourceIsRegistered()
     {
         // Given
-        string mauiProgram = File.ReadAllText(FindRepositoryFile("src/Mobile/src/MauiProgram.cs"));
+        string mauiProgram = File.ReadAllText(FindRepositoryFile("src/Maui/MauiProgram.cs"));
 
         // When
         bool registersConcreteSource = mauiProgram.Contains(
@@ -24,7 +24,7 @@ public sealed class MobileClipboardChangeSourceRegistrationTest
     public void GivenAndroidClipboardChangeSourceWhenReadingImplementationThenPrimaryClipListenerAndSingleStartGuardAreDeclared()
     {
         // Given
-        string source = File.ReadAllText(FindRepositoryFile("src/Mobile/src/Platforms/Android/AndroidClipboardChangeSource.cs"));
+        string source = File.ReadAllText(FindRepositoryFile("src/Maui/Platforms/Android/AndroidClipboardChangeSource.cs"));
 
         // When
         bool implementsListener = source.Contains("ClipboardManager.IOnPrimaryClipChangedListener", StringComparison.Ordinal);

@@ -81,7 +81,7 @@ public sealed class MobileRelayConnectionStateTest
     private static string ReadMobileSource(params string[] segments)
     {
         string repoRoot = FindRepositoryRoot();
-        string path = Path.Combine([repoRoot, "src", "Mobile", "src", .. segments]);
+        string path = Path.Combine([repoRoot, "src", "Maui", .. segments]);
         return File.ReadAllText(path);
     }
 

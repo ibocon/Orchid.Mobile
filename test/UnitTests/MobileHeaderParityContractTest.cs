@@ -14,7 +14,7 @@ public sealed class MobileHeaderParityContractTest
     public void GivenMobileHeaderWhenInspectingTrailingContentThenItUsesTheCommonHeaderOrder()
     {
         // Given
-        string header = ReadRepositoryFile("src/Mobile/src/Component/MobileHeader/MobileHeader.razor");
+        string header = ReadRepositoryFile("src/Maui/Component/MobileHeader/MobileHeader.razor");
 
         // When
         int encryption = header.IndexOf("EncryptionLabel", StringComparison.Ordinal);
@@ -33,9 +33,9 @@ public sealed class MobileHeaderParityContractTest
     public void GivenMobileHeaderResourcesWhenInspectingThenEncryptionLabelIsLocalized()
     {
         // Given
-        string resource = ReadRepositoryFile("src/Mobile/src/Component/MobileHeader/MobileHeaderResource.cs");
-        string defaultCulture = ReadRepositoryFile("src/Mobile/src/Component/MobileHeader/MobileHeaderResource.resx");
-        string korean = ReadRepositoryFile("src/Mobile/src/Component/MobileHeader/MobileHeaderResource.ko-KR.resx");
+        string resource = ReadRepositoryFile("src/Maui/Component/MobileHeader/MobileHeaderResource.cs");
+        string defaultCulture = ReadRepositoryFile("src/Maui/Component/MobileHeader/MobileHeaderResource.resx");
+        string korean = ReadRepositoryFile("src/Maui/Component/MobileHeader/MobileHeaderResource.ko-KR.resx");
 
         // When
         bool hasResourceKey = resource.Contains("EncryptionLabel", StringComparison.Ordinal);

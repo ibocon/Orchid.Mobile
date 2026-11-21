@@ -13,7 +13,7 @@ public sealed partial class MobileHostPageTest
     public void IndexHtmlWhenBlazorScriptLoadedShouldDeferAndDisableAutostart()
     {
         // Given
-        string html = File.ReadAllText(FindRepositoryFile("src/Mobile/src/wwwroot/index.html"));
+        string html = File.ReadAllText(FindRepositoryFile("src/Maui/wwwroot/index.html"));
 
         // When
         Match script = BlazorWebViewScriptRegex().Match(html);

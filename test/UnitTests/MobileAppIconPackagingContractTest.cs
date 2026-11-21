@@ -13,8 +13,8 @@ public sealed class MobileAppIconPackagingContractTest
     {
         // Given
         string repositoryRoot = FindRepositoryRoot();
-        string project = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Mobile", "src", "Orchid.Mobile.csproj"));
-        string background = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Mobile", "src", "Resources", "AppIcon", "appicon.svg"));
+        string project = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Maui", "Orchid.Mobile.csproj"));
+        string background = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Maui", "Resources", "AppIcon", "appicon.svg"));
 
         // When
         const string appIconDeclaration = "<MauiIcon Include=\"Resources\\AppIcon\\appicon.svg\"";
@@ -22,7 +22,7 @@ public sealed class MobileAppIconPackagingContractTest
         // Then
         project.Should().Contain(appIconDeclaration);
         project.Should().Contain("ForegroundFile=\"Resources\\AppIcon\\appiconfg.svg\"");
-        project.Should().Contain("ForegroundScale=\"0.64\"");
+        project.Should().Contain("ForegroundScale=\"0.84\"");
         project.Should().Contain("BaseSize=\"1024,1024\"");
         background.Should().Contain("viewBox=\"0 0 1024 1024\"");
     }
@@ -32,8 +32,8 @@ public sealed class MobileAppIconPackagingContractTest
     {
         // Given
         string repositoryRoot = FindRepositoryRoot();
-        string foreground = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Mobile", "src", "Resources", "AppIcon", "appiconfg.svg"));
-        string loginMark = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Mobile", "src", "wwwroot", "logo-login.svg"));
+        string foreground = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Maui", "Resources", "AppIcon", "appiconfg.svg"));
+        string loginMark = File.ReadAllText(Path.Combine(repositoryRoot, "src", "Maui", "wwwroot", "logo-login.svg"));
 
         // When
         bool isCompactThreePetalMark = foreground.Contains("id=\"petal-top\"", StringComparison.Ordinal);

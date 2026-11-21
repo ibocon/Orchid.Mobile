@@ -18,9 +18,9 @@ public sealed class MobileProjectLayoutTest
         string repositoryRoot = FindRepositoryRoot();
 
         // When
-        string projectPath = Path.Combine(repositoryRoot, "src", "Mobile", "src", "Orchid.Mobile.csproj");
-        string testProjectPath = Path.Combine(repositoryRoot, "src", "Mobile", "test", "UnitTests", "Orchid.Mobile.UnitTests.csproj");
-        string componentPath = Path.Combine(repositoryRoot, "src", "Mobile", "src", "Component");
+        string projectPath = Path.Combine(repositoryRoot, "src", "Maui", "Orchid.Mobile.csproj");
+        string testProjectPath = Path.Combine(repositoryRoot, "test", "UnitTests", "Orchid.Mobile.UnitTests.csproj");
+        string componentPath = Path.Combine(repositoryRoot, "src", "Maui", "Component");
 
         // Then
         File.Exists(projectPath).Should().BeTrue();

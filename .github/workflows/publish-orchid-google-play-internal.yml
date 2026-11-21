@@ -86,7 +86,7 @@ jobs:
           else
             RELAY_URL="https://stag.botanicsoft.com/orchid"
           fi
-          dotnet publish src/Orchid.Mobile.csproj \
+          dotnet publish src/Maui/Orchid.Mobile.csproj \
             -f "$ANDROID_TFM" \
             -c Release \
             -p:OrchidAndroidOnlyPublish=true \
@@ -102,7 +102,7 @@ jobs:
       - name: Locate signed AAB
         id: aab
         run: |
-          AAB_PATH="$(find src/bin/Release/${ANDROID_TFM} -name '*-Signed.aab' | head -n1)"
+          AAB_PATH="$(find src/Maui/bin/Release/${ANDROID_TFM} -name '*-Signed.aab' | head -n1)"
           if [[ -z "$AAB_PATH" ]]; then
             echo "Signed AAB not found." >&2
             exit 1

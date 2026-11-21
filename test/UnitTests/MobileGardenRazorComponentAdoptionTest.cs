@@ -15,10 +15,10 @@ public sealed class MobileGardenRazorComponentAdoptionTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string mobileApp = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/MobileApp/MobileApp.razor"));
-        string mobileHeader = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/MobileHeader/MobileHeader.razor"));
-        string qrScanner = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/QrPairingScanner/QrPairingScanner.razor"));
-        string swipeableItem = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/SwipeableItem/SwipeableItem.razor"));
+        string mobileApp = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/MobileApp/MobileApp.razor"));
+        string mobileHeader = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/MobileHeader/MobileHeader.razor"));
+        string qrScanner = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/QrPairingScanner/QrPairingScanner.razor"));
+        string swipeableItem = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/SwipeableItem/SwipeableItem.razor"));
 
         // When & Then
         // ✅ 모든 모바일 UI 컴포넌트가 Garden.Razor 컴포넌트로 구성되고 원시 Mud* UI 태그를 사용하지 않는다
@@ -56,7 +56,7 @@ public sealed class MobileGardenRazorComponentAdoptionTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string loginPanel = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/LoginPanel/LoginPanel.razor"));
+        string loginPanel = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/LoginPanel/LoginPanel.razor"));
 
         // When & Then
         // ✅ 로그인 패널이 Garden.Razor 공통 로그인 화면을 호스팅한다
@@ -77,7 +77,7 @@ public sealed class MobileGardenRazorComponentAdoptionTest
     {
         // Given
         string repoRoot = FindRepositoryRoot();
-        string mobileHeader = File.ReadAllText(Path.Combine(repoRoot, "src/Mobile/src/Component/MobileHeader/MobileHeader.razor"));
+        string mobileHeader = File.ReadAllText(Path.Combine(repoRoot, "src/Maui/Component/MobileHeader/MobileHeader.razor"));
 
         // When
         int trailingStart = mobileHeader.IndexOf("<TrailingContent>", StringComparison.Ordinal);
