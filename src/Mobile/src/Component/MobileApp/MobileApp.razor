@@ -1,0 +1,127 @@
+@namespace Orchid.Mobile.Component
+@using Orchid.Mobile.Service
+@inject IOrchidMobileAuthService AuthService
+@inject MobileRelayConnectionState ConnectionState
+@inject DesignSystem DesignSystem
+@inject IWindowInsets Insets
+@implements IDisposable
+
+@{
+    string snackbarStyle = new StyleBuilder()
+        .AddStyle("--root-bottom-inset", $"{Insets.BottomPixel}px")
+        .Build();
+    string shellStyle = new StyleBuilder()
+        .AddStyle("--root-shell-padding-top", $"{Insets.TopPixel}px")
+        .AddStyle("--root-bottom-inset", $"{Insets.BottomPixel}px")
+        .Build();
+}
+
+<OrchidMobileDesignSystemProvider @ref="_provider" />
+<MudThemeProvider Theme="_provider?.CurrentMudTheme" IsDarkMode="@(_provider?.IsDarkMode ?? false)" />
+<MudDialogProvider />
+<GardenSnackbarProvider Style="@snackbarStyle" />
+<MudPopoverProvider />
+
+<div class="root__shell" style="@shellStyle">
+    <div class="root__shell-content">
+        <MobileHeader IsAuthenticated="@AuthService.IsAuthenticated"
+                      ConnectionStatus="@ConnectionState.Status"
+                      IsDarkMode="@(_provider?.IsDarkMode ?? false)"
+                      OnToggleTheme="ToggleTheme"
+                      UserName="@AuthService.CurrentUserName"
+                      UserEmail="@AuthService.CurrentUserEmail"
+                      OnSignOut="SignOutAsync" />
+        <main class="root__main">
+            @if (!AuthService.IsAuthenticated)
+            {
+                <LoginPanel OnAuthenticated="StateHasChanged" />
+            }
+            else
+            {
+                @if (ConnectionState.Status is MobileRelayConnectionStatus.AwaitingPairing or MobileRelayConnectionStatus.Failed)
+                {
+                    <QrPairingScanner OnQrScanned="StartRelayAsync" />
+                }
+                else
+                {
+                    <GardenCard Type="GardenCardType.Elevated" Style="padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+                        <MudIcon Icon="@(ConnectionState.Status == MobileRelayConnectionStatus.Connected ? Icons.Material.Filled.CloudDone : Icons.Material.Filled.Sync)" Size="MudSize.Large" />
+                        <GardenTypography HtmlTag="h2" Typo="TypographyStyle.Title" Size="TypographySize.Medium">
+                            @(ConnectionState.Status == MobileRelayConnectionStatus.Connected ? "클립보드 동기화됨" : "릴레이 연결 중")
+                        </GardenTypography>
+                        <GardenTypography Typo="TypographyStyle.Body" Size="TypographySize.Medium">
+                            @(ConnectionState.Status == MobileRelayConnectionStatus.Connected ? "이 기기의 클립보드가 Desktop과 동기화됩니다." : "Desktop 릴레이에 연결하고 있습니다.")
+                        </GardenTypography>
+                    </GardenCard>
+                }
+            }
+        </main>
+    </div>
+</div>
+
+@code {
+    private OrchidMobileDesignSystemProvider? _provider;
+
+    /// <inheritdoc />
+    protected override void OnInitialized()
+    {
+        DesignSystem.Color.SchemeSet.ContextChanged += OnSchemeContextChanged;
+        Insets.Changed += OnInsetsChanged;
+        ConnectionState.Changed += OnConnectionStateChanged;
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        // ✅ 기기에 남은 토큰이 유효하면 로그인 화면 없이 인증 상태로 시작한다
+        await AuthService.RestoreSessionAsync();
+    }
+
+    /// <summary>
+    /// 디자인 시스템 색상 문맥 및 WindowInsets 변경 구독을 해제합니다.
+    /// </summary>
+    public void Dispose()
+    {
+        DesignSystem.Color.SchemeSet.ContextChanged -= OnSchemeContextChanged;
+        Insets.Changed -= OnInsetsChanged;
+        ConnectionState.Changed -= OnConnectionStateChanged;
+        GC.SuppressFinalize(this);
+    }
+
+    private void ToggleTheme(MouseEventArgs _)
+    {
+        _provider?.ToggleTheme();
+        StateHasChanged();
+    }
+
+    private void OnSchemeContextChanged(object? sender, SchemeContextChangedEventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void OnInsetsChanged(object? sender, EventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void OnConnectionStateChanged(object? sender, EventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private async Task SignOutAsync(MouseEventArgs args)
+    {
+        await AuthService.SignOutAsync();
+    }
+
+    private Task StartRelayAsync(string payload)
+    {
+#if ANDROID
+        ConnectionState.SetStatus(MobileRelayConnectionStatus.Connecting);
+        Android.Content.Intent intent = new(Android.App.Application.Context, typeof(Orchid.Mobile.Platforms.Android.RelayForegroundService));
+        intent.PutExtra(Orchid.Mobile.Platforms.Android.RelayForegroundService.ExtraPairingPayload, payload);
+        Android.App.Application.Context.StartForegroundService(intent);
+#endif
+        return Task.CompletedTask;
+    }
+}

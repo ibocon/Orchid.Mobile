@@ -1,0 +1,46 @@
+@namespace Orchid.Mobile.Component
+@using Microsoft.Maui.ApplicationModel.DataTransfer
+@using Orchid.Core.Sync.Relay
+@inject Orchid.Mobile.Service.IQrCodeImageEncoder QrCodeImageEncoder
+@inject IClipboard Clipboard
+
+<div class="qr-pairing-code">
+    <GardenButton Variant="GardenButtonVariant.Outlined" Size="GardenButtonSize.Small" OnClick="Toggle">
+        @(_expanded ? "내 QR 접기" : "내 QR 보여주기")
+    </GardenButton>
+    @if (_expanded)
+    {
+        <img class="qr-pairing-code__image" src="@_imageSource" alt="페어링 QR 코드" />
+        <div class="qr-pairing-code__key">
+            <span class="qr-pairing-code__key-text">@_payload</span>
+            <MudIconButton Icon="@Icons.Material.Filled.ContentCopy" Size="MudSize.Small" aria-label="페어링 키 복사" OnClick="CopyAsync" />
+            <MudIconButton Icon="@Icons.Material.Filled.Refresh" Size="MudSize.Small" aria-label="새 키 발급" OnClick="Renew" />
+        </div>
+    }
+</div>
+
+@code {
+    private bool _expanded;
+    private string _payload = string.Empty;
+    private string _imageSource = string.Empty;
+
+    private void Toggle()
+    {
+        _expanded = !_expanded;
+        if (_expanded && string.IsNullOrEmpty(_payload))
+        {
+            Renew();
+        }
+    }
+
+    private void Renew()
+    {
+        _payload = PairingKey.Generate().ToPayload();
+        _imageSource = QrCodeImageEncoder.ToPngDataUrl(_payload);
+    }
+
+    private Task CopyAsync()
+    {
+        return Clipboard.SetTextAsync(_payload);
+    }
+}

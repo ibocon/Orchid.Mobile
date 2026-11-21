@@ -1,0 +1,67 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+  <PropertyGroup>
+    <TargetFramework></TargetFramework>
+    <TargetFrameworks>net10.0-android</TargetFrameworks>
+    <TargetFrameworks Condition="!$([MSBuild]::IsOSPlatform('windows')) and '$(OrchidAndroidOnlyPublish)' != 'true'">net10.0-android;net10.0-ios</TargetFrameworks>
+    <RuntimeIdentifiers Condition="'$(OrchidAndroidOnlyPublish)' == 'true'">android-arm64</RuntimeIdentifiers>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Orchid.Mobile</RootNamespace>
+    <ApplicationTitle>Universal Clipboard Bridge</ApplicationTitle>
+    <ApplicationId>com.botanicsoft.orchid</ApplicationId>
+    <ApplicationDisplayVersion Condition="'$(ApplicationDisplayVersion)' == ''">0.1.0</ApplicationDisplayVersion>
+    <ApplicationVersion Condition="'$(ApplicationVersion)' == ''">1</ApplicationVersion>
+    <UseMaui>true</UseMaui>
+    <SingleProject>true</SingleProject>
+    <EnableDefaultCssItems>false</EnableDefaultCssItems>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">30.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Desktop과 같은 기본값과 같은 덮어쓰기 규칙 -->
+    <OrchidRelayUrl Condition="'$(OrchidRelayUrl)' == ''">https://stag.botanicsoft.com/orchid</OrchidRelayUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+      <_Parameter1>OrchidRelayUrl</_Parameter1>
+      <_Parameter2>$(OrchidRelayUrl)</_Parameter2>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Peony.Mobile과 같이 EmbeddedResource로만 읽는다. Razor SDK 기본 Content 규칙이 같은 파일을 중복 포함하지 않게 제거한다. -->
+    <EmbeddedResource Include="Resources\appsettings.json" />
+    <Content Remove="Resources\appsettings*.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.64" Color="#F1E4CA" BaseSize="1024,1024" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Orchid.Core" />
+    <PackageReference Include="QRCoder" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Maui" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.Extensions.Localization" />
+    <PackageReference Include="Microsoft.Maui.Controls" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <PackageReference Include="Garden.Maui" />
+    <PackageReference Include="Garden.Razor" />
+    <PackageReference Include="Garden.Share" />
+    <PackageReference Include="SQLitePCLRaw.bundle_green" />
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3.android" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
+    <PackageReference Include="SQLitePCLRaw.lib.e_sqlite3" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'android'" />
+    <PackageReference Include="ZXing.Net.Maui.Controls" />
+  </ItemGroup>
+</Project>

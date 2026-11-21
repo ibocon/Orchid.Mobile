@@ -1,0 +1,30 @@
+.qr-pairing-code {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.qr-pairing-code__image {
+    width: min(168px, 60%);
+    aspect-ratio: 1;
+    image-rendering: pixelated;
+}
+
+.qr-pairing-code__key {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+}
+
+.qr-pairing-code__key-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: monospace;
+    font-size: 0.75rem;
+}

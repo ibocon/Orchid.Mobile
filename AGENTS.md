@@ -26,7 +26,7 @@
 
 ### Tech Stack
 
-- .NET 9, C# 13
+- .NET 10, C# 13
 - .NET MAUI (Windows, macOS, Android, iOS), Blazor Hybrid
 - Clean Architecture, CQRS, SignalR/WebSocket
 - xUnit, FluentAssertions
@@ -35,20 +35,18 @@
 
 ```text
 src/
-  Core/                  # 4대 OS 공용 비즈니스 코어 (순수 C#)
-  Desktop/               # .NET MAUI Blazor Hybrid (Win / Mac)
-  Mobile/                # .NET MAUI Blazor Hybrid (AOS / iOS)
-  Web/                   # Blazor WebAssembly 뷰어
-  Service/               # Clean Architecture E2EE 릴레이 백엔드
-  Shared/                # 공통 Contract DTO
-deploy/
-  k8s/                   # Kubernetes & Flux v2 GitOps
+  Mobile/
+    src/                 # Orchid.Mobile .NET MAUI Blazor Hybrid 호스트
+    test/UnitTests/      # 모바일 호스트 단위·정적 계약 테스트
 lib/
   Garden.Harness/        # Shared Harness (submodule)
 ```
 
+`Orchid.Core`와 릴레이·Desktop·Web·Contract 호스트는 별도 패키지 또는 저장소가 소유한다. 이 저장소에는
+Orchid.Mobile 호스트만 배치하며, 빈 대리 디렉터리를 만들지 않는다.
+
 <!-- HARNESS:START -->
-- 시작: `lib/Garden.Harness/src/agents/AGENT_CONTEXT.md`
+- 시작: `lib/Garden.Harness/src/agents/AGENT_CONTEXT.md`; 에이전트 동기화: `lib/Garden.Harness/src/agents/scripts/Sync-SharedAgents.ps1`
 - 라우터: `lib/Garden.Harness/src/agents/skills/orchestrate-workflows/SKILL.md`
 - 워크플로우: `lib/Garden.Harness/src/core/docs/harness-workflow.md`
 - 검증: `lib/Garden.Harness/src/agents/skills/verify-completion/SKILL.md`

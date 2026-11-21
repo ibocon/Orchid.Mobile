@@ -46,7 +46,7 @@ $ErrorActionPreference = 'Stop'
 
 $NormalizedRelayUrl = $RelayUrl.TrimEnd('/')
 $NegotiateUri = "$NormalizedRelayUrl/hubs/clipboard/negotiate?negotiateVersion=1"
-$ProjectPath = Join-Path -Path $RepositoryRoot -ChildPath 'src\Orchid.Mobile.csproj'
+$ProjectPath = Join-Path -Path $RepositoryRoot -ChildPath 'src\Mobile\src\Orchid.Mobile.csproj'
 
 if (-not (Test-Path -LiteralPath $ProjectPath -PathType Leaf)) {
     throw "[orchid-mobile-staging] project-not-found: $ProjectPath"

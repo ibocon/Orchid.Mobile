@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="src/Orchid.Mobile.csproj" />
-  <Project Path="test/UnitTests/Orchid.Mobile.UnitTests.csproj" />
+  <Project Path="src/Mobile/src/Orchid.Mobile.csproj" />
+  <Project Path="src/Mobile/test/UnitTests/Orchid.Mobile.UnitTests.csproj" />
 </Solution>
