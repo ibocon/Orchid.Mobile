@@ -110,6 +110,22 @@ if (-not (Test-Path -LiteralPath $StagingScriptPath -PathType Leaf)) {
     throw "[s22-orchid-staging] staging-script-not-found: $StagingScriptPath"
 }
 
+function Assert-LocalBranchNotBehindOrigin {
+    $repositoryRoot = Split-Path -Path $PSScriptRoot -Parent
+    $null = & git -C $repositoryRoot fetch origin --quiet 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        [Console]::WriteLine('[s22-orchid-staging] warning: git fetch origin failed; origin sync check skipped.')
+        return
+    }
+
+    [int] $behind = (& git -C $repositoryRoot rev-list --count 'HEAD..origin/main' 2>&1 | Out-String).Trim()
+    if ($behind -gt 0) {
+        throw "[s22-orchid-staging] local-behind-origin: 로컬 HEAD가 origin/main보다 $behind 커밋 뒤처져 있습니다. 동기화 후 다시 배포하세요."
+    }
+}
+
+Assert-LocalBranchNotBehindOrigin
+
 $ResolvedSerial = Resolve-S22Serial
 
 $StagingParams = @{
